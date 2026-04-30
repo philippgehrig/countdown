@@ -45,6 +45,20 @@
       </div>
     </section>
 
+    <section id="bali-counter" class="py-10 md:py-14">
+      <div class="max-w-6xl mx-auto px-6">
+        <article class="rounded-3xl border border-indigo-200/80 bg-white/75 p-6 md:p-8 shadow-[0_14px_35px_rgba(79,70,160,0.1)]">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700">Bali Adventure Tracker</p>
+          <p class="mt-2 text-xl md:text-2xl font-semibold text-[var(--ink-strong)]">
+            Gina has been in Bali for <span class="text-indigo-600">{{ daysInBali }}</span> {{ daysInBali === 1 ? 'day' : 'days' }}
+          </p>
+          <p class="mt-3 text-sm md:text-base text-[var(--ink-soft)]">
+            That's {{ hoursInBali.toLocaleString('en-GB') }} hours of sunshine, rice paddies, and adventures without you.
+          </p>
+        </article>
+      </div>
+    </section>
+
     <section id="mission-control" class="py-10 md:py-14">
       <div class="max-w-6xl mx-auto px-6">
         <p class="text-xs font-mono uppercase tracking-[0.22em] text-teal-700">Mission Control</p>
@@ -106,6 +120,10 @@ const forecastOptions = [
 const now = ref(new Date());
 
 let countdownTimer: ReturnType<typeof setInterval> | undefined;
+
+const baliStartDate = new Date(2026, 3, 5, 0, 0, 0);
+const daysInBali = computed(() => Math.max(0, Math.floor((now.value.getTime() - baliStartDate.getTime()) / 86400000)));
+const hoursInBali = computed(() => Math.max(0, Math.floor((now.value.getTime() - baliStartDate.getTime()) / 3600000)));
 
 const msRemaining = computed(() => Math.max(reunionDate.getTime() - now.value.getTime(), 0));
 const isReunionDay = computed(() => msRemaining.value === 0);
